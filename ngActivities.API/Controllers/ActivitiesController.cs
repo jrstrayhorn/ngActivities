@@ -23,13 +23,17 @@ namespace ngActivities.API.Controllers
             this._activityRepo = activityRepo;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetActivities()
+        {
+            return Ok(await _activityRepo.GetActivities());
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActivity(Guid id)
         {
             var activity = await _activityRepo.GetActivity(id);
-
             if (activity == null) return NotFound();
-
             return Ok(activity);
         }
 
@@ -40,6 +44,26 @@ namespace ngActivities.API.Controllers
             this._activityRepo.Add(activity);
             await this._unitOfWork.CompleteAsync();
             return Ok(activity);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateActivity(Guid id, ActivityResource activityResource)
+        {
+            var existingActivity = await _activityRepo.GetActivity(id);
+            if (existingActivity == null) return NotFound();
+            _mapper.Map<ActivityResource, Activity>(activityResource, existingActivity);
+            await _unitOfWork.CompleteAsync();
+            return Ok(existingActivity);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteActivity(Guid id)
+        {
+            var activity = await _activityRepo.GetActivity(id);
+            if (activity == null) return NotFound();
+            _activityRepo.Remove(activity);
+            await _unitOfWork.CompleteAsync();
+            return Ok();
         }
     }
 }

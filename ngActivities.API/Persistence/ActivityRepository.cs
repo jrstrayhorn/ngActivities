@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +21,19 @@ namespace ngActivities.API.Persistence
             this._context.Add(activity);
         }
 
+        public async Task<IEnumerable<Activity>> GetActivities()
+        {
+            return await _context.Activities.ToListAsync();
+        }
+
         public async Task<Activity> GetActivity(Guid id)
         {
             return await _context.Activities.SingleOrDefaultAsync(a => a.Id == id);
+        }
+
+        public void Remove(Activity activity)
+        {
+            this._context.Remove(activity);
         }
     }
 }
