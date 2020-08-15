@@ -1,3 +1,4 @@
+import { IActivity } from './activities/shared/activity.model';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -7,13 +8,13 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  values: any;
+  activities: IActivity[];
 
   constructor(private httpClient: HttpClient) {}
 
   ngOnInit(): void {
     this.httpClient
-      .get('https://localhost:5001/api/weatherforecast')
-      .subscribe((values) => (this.values = values));
+      .get<IActivity[]>('https://localhost:5001/api/activities')
+      .subscribe((data) => (this.activities = data));
   }
 }
