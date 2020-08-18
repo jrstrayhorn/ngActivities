@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent implements OnInit {
   activities: IActivity[];
   currentActivity: IActivity;
+  editMode = false;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -21,5 +22,9 @@ export class AppComponent implements OnInit {
 
   onChangedActivity(id: string): void {
     this.currentActivity = this.activities.find((a) => a.id === id);
+  }
+
+  onChangedEditMode(isEdit: boolean): void {
+    this.editMode = isEdit;
   }
 }

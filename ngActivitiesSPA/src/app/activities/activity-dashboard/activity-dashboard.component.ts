@@ -9,8 +9,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ActivityDashboardComponent implements OnInit {
   @Input() activities: IActivity[];
   @Input() currentActivity: IActivity;
+  @Input() editMode: boolean;
 
   @Output() changedActivity = new EventEmitter<string>();
+  @Output() changedEditMode = new EventEmitter<boolean>();
 
   constructor() {}
 
@@ -18,5 +20,9 @@ export class ActivityDashboardComponent implements OnInit {
 
   onSelectedActivity(id: string): void {
     this.changedActivity.emit(id);
+  }
+
+  onChangedEditMode(isEdit: boolean): void {
+    this.changedEditMode.emit(isEdit);
   }
 }

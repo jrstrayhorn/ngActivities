@@ -7,9 +7,10 @@
   </div>
   <div class="six wide column">
     <app-activity-details
-      *ngIf="currentActivity"
+      *ngIf="currentActivity && !editMode"
       [currentActivity]="currentActivity"
+      (changedEditMode)="onChangedEditMode($event)"
     ></app-activity-details>
-    <app-activity-form></app-activity-form>
+    <app-activity-form *ngIf="editMode"></app-activity-form>
   </div>
 </div>
