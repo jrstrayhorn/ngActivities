@@ -6,7 +6,10 @@
     ></app-activity-list>
   </div>
   <div class="six wide column">
-    <app-activity-details></app-activity-details>
+    <app-activity-details
+      *ngIf="currentActivity"
+      [currentActivity]="currentActivity"
+    ></app-activity-details>
     <app-activity-form></app-activity-form>
   </div>
 </div>

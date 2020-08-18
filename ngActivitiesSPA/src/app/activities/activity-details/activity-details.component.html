@@ -1,9 +1,13 @@
 <div class="ui fluid card">
-  <div class="image"><img src="assets/placeholder.png" /></div>
+  <div class="image">
+    <img src="assets/categoryImages/{{ currentActivity.category }}.jpg" />
+  </div>
   <div class="content">
-    <div class="header">Title</div>
-    <div class="meta"><span>Date</span></div>
-    <div class="description">Description</div>
+    <div class="header">{{ currentActivity.title }}</div>
+    <div class="meta">
+      <span>{{ currentActivity.date }}</span>
+    </div>
+    <div class="description">{{ currentActivity.description }}</div>
   </div>
   <div class="extra content">
     <div class="ui two wide buttons">

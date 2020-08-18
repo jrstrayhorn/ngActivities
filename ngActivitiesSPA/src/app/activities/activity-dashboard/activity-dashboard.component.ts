@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ActivityDashboardComponent implements OnInit {
   @Input() activities: IActivity[];
+  @Input() currentActivity: IActivity;
 
   @Output() changedActivity = new EventEmitter<string>();
 
