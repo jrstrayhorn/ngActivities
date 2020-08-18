@@ -1,24 +1,56 @@
 <div class="ui clearing segment">
   <form class="ui form">
     <div class="field">
-      <div class="ui input"><input placeholder="Title" type="text" /></div>
-    </div>
-    <div class="field">
       <div class="ui input">
-        <textarea placeholder="Description" rows="2"></textarea>
+        <input
+          placeholder="Title"
+          type="text"
+          value="{{ currentActivity.title }}"
+        />
       </div>
     </div>
     <div class="field">
-      <div class="ui input"><input placeholder="Category" type="text" /></div>
+      <div class="ui input">
+        <textarea placeholder="Description" rows="2">{{
+          currentActivity.description
+        }}</textarea>
+      </div>
     </div>
     <div class="field">
-      <div class="ui input"><input placeholder="Date" type="date" /></div>
+      <div class="ui input">
+        <input
+          placeholder="Category"
+          type="text"
+          value="{{ currentActivity.category }}"
+        />
+      </div>
     </div>
     <div class="field">
-      <div class="ui input"><input placeholder="City" type="text" /></div>
+      <div class="ui input">
+        <input
+          placeholder="Date"
+          type="date"
+          value="{{ currentActivity.date }}"
+        />
+      </div>
     </div>
     <div class="field">
-      <div class="ui input"><input placeholder="Venue" type="text" /></div>
+      <div class="ui input">
+        <input
+          placeholder="City"
+          type="text"
+          value="{{ currentActivity.city }}"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <div class="ui input">
+        <input
+          placeholder="Venue"
+          type="text"
+          value="{{ currentActivity.venue }}"
+        />
+      </div>
     </div>
     <div class="field">
       <button class="ui button right floated positive" type="submit">

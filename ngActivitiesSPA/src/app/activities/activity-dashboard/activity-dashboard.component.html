@@ -15,6 +15,7 @@
     <app-activity-form
       *ngIf="editMode"
       (changedEditMode)="onChangedEditMode($event)"
+      [currentActivity]="currentActivity"
     ></app-activity-form>
   </div>
 </div>
