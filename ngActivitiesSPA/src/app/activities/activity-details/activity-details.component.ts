@@ -10,6 +10,7 @@ export class ActivityDetailsComponent implements OnInit {
   @Input() currentActivity: IActivity;
 
   @Output() changedEditMode = new EventEmitter<boolean>();
+  @Output() changedCurrentActivity = new EventEmitter<IActivity>();
 
   constructor() {}
 
@@ -17,5 +18,9 @@ export class ActivityDetailsComponent implements OnInit {
 
   setEditMode(isEdit: boolean) {
     this.changedEditMode.emit(isEdit);
+  }
+
+  setCurrentActivity() {
+    this.changedCurrentActivity.emit(null);
   }
 }

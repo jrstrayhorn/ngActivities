@@ -1,4 +1,4 @@
-<div class="ui segment">
+<div class="ui clearing segment">
   <form class="ui form">
     <div class="field">
       <div class="ui input"><input placeholder="Title" type="text" /></div>
@@ -19,6 +19,14 @@
     </div>
     <div class="field">
       <div class="ui input"><input placeholder="Venue" type="text" /></div>
+    </div>
+    <div class="field">
+      <button class="ui button right floated positive" type="submit">
+        Submit
+      </button>
+      <button class="ui button right floated" (click)="setEditMode(false)">
+        Cancel
+      </button>
     </div>
   </form>
 </div>

@@ -10,7 +10,11 @@
       *ngIf="currentActivity && !editMode"
       [currentActivity]="currentActivity"
       (changedEditMode)="onChangedEditMode($event)"
+      (changedCurrentActivity)="onChangedCurrentActivity($event)"
     ></app-activity-details>
-    <app-activity-form *ngIf="editMode"></app-activity-form>
+    <app-activity-form
+      *ngIf="editMode"
+      (changedEditMode)="onChangedEditMode($event)"
+    ></app-activity-form>
   </div>
 </div>

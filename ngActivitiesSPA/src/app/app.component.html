@@ -1,4 +1,4 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar (openedCreateForm)="onOpenedCreateForm()"></app-nav-bar>
 <div class="ui container" style="margin-top: 7em;">
   <app-activity-dashboard
     [activities]="activities"
@@ -6,5 +6,6 @@
     [currentActivity]="currentActivity"
     [editMode]="editMode"
     (changedEditMode)="onChangedEditMode($event)"
+    (changedCurrentActivity)="onChangedCurrentActivity($event)"
   ></app-activity-dashboard>
 </div>

@@ -13,6 +13,7 @@ export class ActivityDashboardComponent implements OnInit {
 
   @Output() changedActivity = new EventEmitter<string>();
   @Output() changedEditMode = new EventEmitter<boolean>();
+  @Output() changedCurrentActivity = new EventEmitter<IActivity>();
 
   constructor() {}
 
@@ -24,5 +25,9 @@ export class ActivityDashboardComponent implements OnInit {
 
   onChangedEditMode(isEdit: boolean): void {
     this.changedEditMode.emit(isEdit);
+  }
+
+  onChangedCurrentActivity(activity: IActivity): void {
+    this.changedCurrentActivity.emit(activity);
   }
 }
