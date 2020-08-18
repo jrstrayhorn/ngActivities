@@ -1,0 +1,12 @@
+<div class="ui grid">
+  <div class="ten wide column">
+    <app-activity-list
+      [activities]="activities"
+      (selectedActivity)="onSelectedActivity($event)"
+    ></app-activity-list>
+  </div>
+  <div class="six wide column">
+    <app-activity-details></app-activity-details>
+    <app-activity-form></app-activity-form>
+  </div>
+</div>

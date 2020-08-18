@@ -1,0 +1,18 @@
+<div class="ui clearing segment">
+  <div class="ui divided items">
+    <div class="item" *ngFor="let activity of activities">
+      <div class="content">
+        <a class="header">{{ activity.title }}</a>
+        <div class="meta">{{ activity.date }}</div>
+        <div class="description">
+          <div>{{ activity.description }}</div>
+          <div>{{ activity.city }}, {{ activity.venue }}</div>
+        </div>
+        <div class="extra">
+          <button class="ui button right floated blue" (click)="selectActivity(activity)">View</button>
+          <div class="ui basic label">{{ activity.category }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
   activities: IActivity[];
+  selectedActivity: IActivity;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -16,5 +17,10 @@ export class AppComponent implements OnInit {
     this.httpClient
       .get<IActivity[]>('https://localhost:5001/api/activities')
       .subscribe((data) => (this.activities = data));
+  }
+
+  onChangedActivity(id: string): void {
+    console.log(id);
+    // this.selectedActivity = this.activities.find((a) => a.id === id);
   }
 }
