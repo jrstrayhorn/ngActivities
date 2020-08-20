@@ -33,11 +33,19 @@ export class ActivityFormComponent implements OnInit, OnChanges {
     );
   }
 
+  handleInputChange(inputEl: HTMLInputElement | HTMLTextAreaElement) {
+    this.setActivity(inputEl);
+  }
+
   setEditMode(isEdit: boolean) {
     this.changedEditMode.emit(isEdit);
   }
 
-  initializeForm(activity: IActivity): IActivity {
+  submitForm() {
+    console.log(this.currentActivity);
+  }
+
+  private initializeForm(activity: IActivity): IActivity {
     if (!activity) {
       return {
         id: '',
@@ -50,5 +58,13 @@ export class ActivityFormComponent implements OnInit, OnChanges {
       };
     }
     return activity;
+  }
+
+  private setActivity(inputEl: HTMLInputElement | HTMLTextAreaElement) {
+    const { name, value } = inputEl;
+    this.currentActivity = {
+      ...this.currentActivity,
+      [name]: value,
+    };
   }
 }

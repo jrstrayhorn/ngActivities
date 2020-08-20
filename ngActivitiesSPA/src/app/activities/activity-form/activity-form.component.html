@@ -6,14 +6,22 @@
           placeholder="Title"
           type="text"
           value="{{ currentActivity.title }}"
+          name="title"
+          #titleEl
+          (change)="handleInputChange(titleEl)"
         />
       </div>
     </div>
     <div class="field">
       <div class="ui input">
-        <textarea placeholder="Description" rows="2">{{
-          currentActivity.description
-        }}</textarea>
+        <textarea
+          placeholder="Description"
+          rows="2"
+          name="description"
+          #descriptionEl
+          (change)="handleInputChange(descriptionEl)"
+          >{{ currentActivity.description }}</textarea
+        >
       </div>
     </div>
     <div class="field">
@@ -22,6 +30,9 @@
           placeholder="Category"
           type="text"
           value="{{ currentActivity.category }}"
+          name="category"
+          #categoryEl
+          (change)="handleInputChange(categoryEl)"
         />
       </div>
     </div>
@@ -31,6 +42,9 @@
           placeholder="Date"
           type="date"
           value="{{ currentActivity.date }}"
+          name="date"
+          #dateEl
+          (change)="handleInputChange(dateEl)"
         />
       </div>
     </div>
@@ -40,6 +54,9 @@
           placeholder="City"
           type="text"
           value="{{ currentActivity.city }}"
+          name="city"
+          #cityEl
+          (change)="handleInputChange(cityEl)"
         />
       </div>
     </div>
@@ -49,14 +66,25 @@
           placeholder="Venue"
           type="text"
           value="{{ currentActivity.venue }}"
+          name="venue"
+          #venueEl
+          (change)="handleInputChange(venueEl)"
         />
       </div>
     </div>
     <div class="field">
-      <button class="ui button right floated positive" type="submit">
+      <button
+        class="ui button right floated positive"
+        (click)="submitForm()"
+        type="button"
+      >
         Submit
       </button>
-      <button class="ui button right floated" (click)="setEditMode(false)">
+      <button
+        class="ui button right floated"
+        (click)="setEditMode(false)"
+        type="button"
+      >
         Cancel
       </button>
     </div>
