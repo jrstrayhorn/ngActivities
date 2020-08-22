@@ -9,7 +9,18 @@
           <div>{{ activity.city }}, {{ activity.venue }}</div>
         </div>
         <div class="extra">
-          <button class="ui button right floated blue" (click)="selectActivity(activity)">View</button>
+          <button
+            class="ui button right floated blue"
+            (click)="selectActivity(activity)"
+          >
+            View
+          </button>
+          <button
+            class="ui button right floated red"
+            (click)="deleteActivity(activity)"
+          >
+            Delete
+          </button>
           <div class="ui basic label">{{ activity.category }}</div>
         </div>
       </div>

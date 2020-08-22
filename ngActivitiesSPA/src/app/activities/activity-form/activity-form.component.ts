@@ -8,6 +8,7 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-activity-form',
@@ -17,6 +18,8 @@ import {
 export class ActivityFormComponent implements OnInit, OnChanges {
   @Input() currentActivity: IActivity;
   @Output() changedEditMode = new EventEmitter<boolean>();
+  @Output() createdActivity = new EventEmitter<IActivity>();
+  @Output() editedActivity = new EventEmitter<IActivity>();
 
   constructor() {}
 
@@ -42,7 +45,18 @@ export class ActivityFormComponent implements OnInit, OnChanges {
   }
 
   submitForm() {
-    console.log(this.currentActivity);
+    if (this.currentActivity.id === '') {
+      // new activity
+      const newActivity = {
+        ...this.currentActivity,
+        id: uuid(),
+      } as IActivity;
+      console.log(newActivity);
+      this.createdActivity.emit(newActivity);
+    } else {
+      this.editedActivity.emit(this.currentActivity);
+    }
+    this.changedEditMode.emit(false);
   }
 
   private initializeForm(activity: IActivity): IActivity {

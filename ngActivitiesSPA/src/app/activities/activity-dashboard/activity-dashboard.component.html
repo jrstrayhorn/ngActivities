@@ -3,6 +3,7 @@
     <app-activity-list
       [activities]="activities"
       (selectedActivity)="onSelectedActivity($event)"
+      (deletedActivity)="onDeletedActivity($event)"
     ></app-activity-list>
   </div>
   <div class="six wide column">
@@ -16,6 +17,8 @@
       *ngIf="editMode"
       (changedEditMode)="onChangedEditMode($event)"
       [currentActivity]="currentActivity"
+      (createdActivity)="onCreatedActivity($event)"
+      (editedActivity)="onEditedActivity($event)"
     ></app-activity-form>
   </div>
 </div>

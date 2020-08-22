@@ -10,6 +10,7 @@ export class ActivityListComponent implements OnInit {
   @Input() activities: IActivity[];
 
   @Output() selectedActivity = new EventEmitter<string>();
+  @Output() deletedActivity = new EventEmitter<string>();
 
   constructor() {}
 
@@ -17,5 +18,9 @@ export class ActivityListComponent implements OnInit {
 
   selectActivity(activity: IActivity) {
     this.selectedActivity.emit(activity.id);
+  }
+
+  deleteActivity(activity: IActivity) {
+    this.deletedActivity.emit(activity.id);
   }
 }
