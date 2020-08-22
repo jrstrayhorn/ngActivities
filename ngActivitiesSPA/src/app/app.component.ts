@@ -1,6 +1,6 @@
+import { ActivityService } from './activities/shared/activity.service';
 import { IActivity } from './activities/shared/activity.model';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -12,19 +12,17 @@ export class AppComponent implements OnInit {
   currentActivity: IActivity;
   editMode = false;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private activityService: ActivityService) {}
 
   ngOnInit(): void {
-    this.httpClient
-      .get<IActivity[]>('https://localhost:5001/api/activities')
-      .subscribe((data) => {
-        const activities = [];
-        data.forEach((activity) => {
-          activity.date = activity.date.split('.')[0];
-          activities.push(activity);
-        });
-        this.activities = activities;
+    this.activityService.getAll().subscribe((data) => {
+      const activities = [];
+      data.forEach((activity) => {
+        activity.date = activity.date.split('.')[0];
+        activities.push(activity);
       });
+      this.activities = activities;
+    });
   }
 
   onChangedActivity(id: string): void {
