@@ -31,7 +31,9 @@ export class AppComponent implements OnInit {
   }
 
   onDeletedActivity(id: string): void {
-    this.activities = [...this.activities.filter((a) => a.id !== id)];
+    this.activityService.delete(id).subscribe(() => {
+      this.activities = [...this.activities.filter((a) => a.id !== id)];
+    });
   }
 
   onChangedEditMode(isEdit: boolean): void {
@@ -48,17 +50,21 @@ export class AppComponent implements OnInit {
   }
 
   onCreatedActivity(activity: IActivity): void {
-    this.activities = [...this.activities, activity];
-    this.currentActivity = activity;
-    this.editMode = false;
+    this.activityService.create(activity).subscribe(() => {
+      this.activities = [...this.activities, activity];
+      this.currentActivity = activity;
+      this.editMode = false;
+    });
   }
 
   onEditedActivity(activity: IActivity): void {
-    this.activities = [
-      ...this.activities.filter((a) => a.id !== activity.id),
-      activity,
-    ];
-    this.currentActivity = activity;
-    this.editMode = false;
+    this.activityService.update(activity).subscribe(() => {
+      this.activities = [
+        ...this.activities.filter((a) => a.id !== activity.id),
+        activity,
+      ];
+      this.currentActivity = activity;
+      this.editMode = false;
+    });
   }
 }

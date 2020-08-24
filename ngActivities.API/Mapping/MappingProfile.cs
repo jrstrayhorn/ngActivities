@@ -12,8 +12,8 @@ namespace ngActivities.API.Mapping
 
 
             // API Resource to Domain
-            CreateMap<ActivityResource, Activity>()
-                .ForMember(a => a.Id, opt => opt.Ignore());
+            CreateMap<ActivityResource, Activity>();
+            //.ForMember(a => a.Id, opt => opt.Ignore());
         }
     }
 }
