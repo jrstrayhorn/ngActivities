@@ -2,18 +2,22 @@ import { IActivity } from './activity.model';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActivityService {
+  sleep = timer(1000);
   private baseActivityUrl = environment.apiUrl + 'activities';
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<IActivity[]> {
-    return this.http.get<IActivity[]>(this.baseActivityUrl);
+    return this.sleep.pipe(
+      concatMap(() => this.http.get<IActivity[]>(this.baseActivityUrl))
+    );
   }
 
   getById(id: string): Observable<IActivity> {
