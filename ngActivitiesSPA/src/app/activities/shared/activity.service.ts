@@ -14,6 +14,12 @@ export class ActivityService {
 
   constructor(private http: HttpClient) {}
 
+  // addDelay(request: Observable<IActivity[] | IActivity | {}>): Observable<IActivity[] | IActivity | {}> {
+  //   return this.sleep.pipe(
+  //     concatMap(() => request)
+  //   );
+  // }
+
   getAll(): Observable<IActivity[]> {
     return this.sleep.pipe(
       concatMap(() => this.http.get<IActivity[]>(this.baseActivityUrl))
@@ -21,21 +27,31 @@ export class ActivityService {
   }
 
   getById(id: string): Observable<IActivity> {
-    return this.http.get<IActivity>(`${this.baseActivityUrl}/${id}`);
+    return this.sleep.pipe(
+      concatMap(() => this.http.get<IActivity>(`${this.baseActivityUrl}/${id}`))
+    );
   }
 
   create(activity: IActivity): Observable<IActivity> {
-    return this.http.post<IActivity>(this.baseActivityUrl, activity);
+    return this.sleep.pipe(
+      concatMap(() => this.http.post<IActivity>(this.baseActivityUrl, activity))
+    );
   }
 
   update(activity: IActivity): Observable<IActivity> {
-    return this.http.put<IActivity>(
-      `${this.baseActivityUrl}/${activity.id}`,
-      activity
+    return this.sleep.pipe(
+      concatMap(() =>
+        this.http.put<IActivity>(
+          `${this.baseActivityUrl}/${activity.id}`,
+          activity
+        )
+      )
     );
   }
 
   delete(id: string): Observable<{}> {
-    return this.http.delete(`${this.baseActivityUrl}/${id}`);
+    return this.sleep.pipe(
+      concatMap(() => this.http.delete(`${this.baseActivityUrl}/${id}`))
+    );
   }
 }
