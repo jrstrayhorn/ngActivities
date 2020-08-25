@@ -1,14 +1,17 @@
-<app-nav-bar (openedCreateForm)="onOpenedCreateForm()"></app-nav-bar>
-<div class="ui container" style="margin-top: 7em;">
-  <app-activity-dashboard
-    [activities]="activities"
-    (changedActivity)="onChangedActivity($event)"
-    [currentActivity]="currentActivity"
-    [editMode]="editMode"
-    (changedEditMode)="onChangedEditMode($event)"
-    (changedCurrentActivity)="onChangedCurrentActivity($event)"
-    (createdActivity)="onCreatedActivity($event)"
-    (editedActivity)="onEditedActivity($event)"
-    (deletedActivity)="onDeletedActivity($event)"
-  ></app-activity-dashboard>
-</div>
+<app-loading *ngIf="true"></app-loading>
+<ng-container *ngIf="false">
+  <app-nav-bar (openedCreateForm)="onOpenedCreateForm()"></app-nav-bar>
+  <div class="ui container" style="margin-top: 7em;">
+    <app-activity-dashboard
+      [activities]="activities"
+      (changedActivity)="onChangedActivity($event)"
+      [currentActivity]="currentActivity"
+      [editMode]="editMode"
+      (changedEditMode)="onChangedEditMode($event)"
+      (changedCurrentActivity)="onChangedCurrentActivity($event)"
+      (createdActivity)="onCreatedActivity($event)"
+      (editedActivity)="onEditedActivity($event)"
+      (deletedActivity)="onDeletedActivity($event)"
+    ></app-activity-dashboard>
+  </div>
+</ng-container>

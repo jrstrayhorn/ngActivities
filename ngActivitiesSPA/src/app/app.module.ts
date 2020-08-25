@@ -1,3 +1,4 @@
+import { LoadingComponent } from './shared/loading/loading.component';
 import { ActivityFormComponent } from './activities/activity-form/activity-form.component';
 import { ActivityDetailsComponent } from './activities/activity-details/activity-details.component';
 import { ActivityListComponent } from './activities/activity-list/activity-list.component';
@@ -17,6 +18,7 @@ import { AppComponent } from './app.component';
     ActivityListComponent,
     ActivityDetailsComponent,
     ActivityFormComponent,
+    LoadingComponent,
   ],
   imports: [BrowserModule, HttpClientModule],
   providers: [],
