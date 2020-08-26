@@ -17,6 +17,7 @@
           </button>
           <button
             class="ui button right floated red"
+            [class.loading]="submitting"
             (click)="deleteActivity(activity)"
           >
             Delete

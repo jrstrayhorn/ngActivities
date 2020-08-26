@@ -17,6 +17,8 @@ import { v4 as uuid } from 'uuid';
 })
 export class ActivityFormComponent implements OnInit, OnChanges {
   @Input() currentActivity: IActivity;
+  @Input() submitting: boolean;
+
   @Output() changedEditMode = new EventEmitter<boolean>();
   @Output() createdActivity = new EventEmitter<IActivity>();
   @Output() editedActivity = new EventEmitter<IActivity>();

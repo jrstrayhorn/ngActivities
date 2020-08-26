@@ -4,6 +4,7 @@
       [activities]="activities"
       (selectedActivity)="onSelectedActivity($event)"
       (deletedActivity)="onDeletedActivity($event)"
+      [submitting]="submitting"
     ></app-activity-list>
   </div>
   <div class="six wide column">
@@ -19,6 +20,7 @@
       [currentActivity]="currentActivity"
       (createdActivity)="onCreatedActivity($event)"
       (editedActivity)="onEditedActivity($event)"
+      [submitting]="submitting"
     ></app-activity-form>
   </div>
 </div>

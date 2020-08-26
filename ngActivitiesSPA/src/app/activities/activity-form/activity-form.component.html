@@ -75,6 +75,7 @@
     <div class="field">
       <button
         class="ui button right floated positive"
+        [class.loading]="submitting"
         (click)="submitForm()"
         type="button"
       >
