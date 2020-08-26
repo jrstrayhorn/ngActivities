@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   editMode = false;
   loading = true;
   submitting = false;
+  target = '';
 
   constructor(private activityService: ActivityService) {}
 
@@ -35,6 +36,7 @@ export class AppComponent implements OnInit {
 
   onDeletedActivity(id: string): void {
     this.submitting = true;
+    this.target = id;
     this.activityService.delete(id).subscribe(() => {
       this.activities = [...this.activities.filter((a) => a.id !== id)];
       this.submitting = false;
@@ -56,24 +58,30 @@ export class AppComponent implements OnInit {
 
   onCreatedActivity(activity: IActivity): void {
     this.submitting = true;
-    this.activityService.create(activity).subscribe(() => {
-      this.activities = [...this.activities, activity];
-      this.currentActivity = activity;
-      this.editMode = false;
-      this.submitting = false;
-    });
+    this.activityService.create(activity).subscribe(
+      () => {
+        this.activities = [...this.activities, activity];
+        this.currentActivity = activity;
+        this.editMode = false;
+      },
+      () => {},
+      () => (this.submitting = false)
+    );
   }
 
   onEditedActivity(activity: IActivity): void {
     this.submitting = true;
-    this.activityService.update(activity).subscribe(() => {
-      this.activities = [
-        ...this.activities.filter((a) => a.id !== activity.id),
-        activity,
-      ];
-      this.currentActivity = activity;
-      this.editMode = false;
-      this.submitting = false;
-    });
+    this.activityService.update(activity).subscribe(
+      () => {
+        this.activities = [
+          ...this.activities.filter((a) => a.id !== activity.id),
+          activity,
+        ];
+        this.currentActivity = activity;
+        this.editMode = false;
+      },
+      () => {},
+      () => (this.submitting = false)
+    );
   }
 }

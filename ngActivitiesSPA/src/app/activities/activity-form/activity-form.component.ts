@@ -53,12 +53,12 @@ export class ActivityFormComponent implements OnInit, OnChanges {
         ...this.currentActivity,
         id: uuid(),
       } as IActivity;
-      console.log(newActivity);
+      // console.log(newActivity);
       this.createdActivity.emit(newActivity);
     } else {
       this.editedActivity.emit(this.currentActivity);
     }
-    this.changedEditMode.emit(false);
+    // this.changedEditMode.emit(false);
   }
 
   private initializeForm(activity: IActivity): IActivity {

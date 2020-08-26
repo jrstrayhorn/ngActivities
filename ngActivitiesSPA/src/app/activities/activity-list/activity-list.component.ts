@@ -9,6 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ActivityListComponent implements OnInit {
   @Input() activities: IActivity[];
   @Input() submitting: boolean;
+  @Input() target: string;
 
   @Output() selectedActivity = new EventEmitter<string>();
   @Output() deletedActivity = new EventEmitter<string>();

@@ -11,6 +11,7 @@ export class ActivityDashboardComponent implements OnInit {
   @Input() currentActivity: IActivity;
   @Input() editMode: boolean;
   @Input() submitting: boolean;
+  @Input() target: string;
 
   @Output() changedActivity = new EventEmitter<string>();
   @Output() deletedActivity = new EventEmitter<string>();
