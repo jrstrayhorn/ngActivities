@@ -1,3 +1,5 @@
-<div class="ui active transition visible inverted dimmer">
-  <div class="content"><div class="ui text loader">Test Loading...</div></div>
+<div class="ui active transition visible dimmer" [class.inverted]="inverted">
+  <div class="content">
+    <div class="ui text loader">{{ content }}</div>
+  </div>
 </div>

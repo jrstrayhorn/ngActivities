@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   activities: IActivity[];
   currentActivity: IActivity;
   editMode = false;
+  loading = true;
 
   constructor(private activityService: ActivityService) {}
 
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
         activities.push(activity);
       });
       this.activities = activities;
+      this.loading = false;
     });
   }
 
