@@ -1,6 +1,9 @@
+import { Observable } from 'rxjs';
 import { ActivityService } from './activities/shared/activity.service';
 import { IActivity } from './activities/shared/activity.model';
 import { Component, OnInit } from '@angular/core';
+import { ActivityStore } from './activities/shared/activity-store.service';
+import { ActivityState } from './activities/shared/activity-state';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +17,13 @@ export class AppComponent implements OnInit {
   loading = true;
   submitting = false;
   target = '';
+  activityState$: Observable<ActivityState>;
+  title: string;
 
-  constructor(private activityService: ActivityService) {}
+  constructor(
+    private activityService: ActivityService,
+    public activityStore: ActivityStore
+  ) {}
 
   ngOnInit(): void {
     this.activityService.getAll().subscribe((data) => {
@@ -27,6 +35,10 @@ export class AppComponent implements OnInit {
       this.activities = activities;
       this.loading = false;
     });
+    // async example
+    this.activityState$ = this.activityStore.stateChanged;
+    // sync example
+    this.title = this.activityStore.getTitle();
   }
 
   onChangedActivity(id: string): void {
