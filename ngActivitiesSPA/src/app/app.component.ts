@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
   loading = true;
   submitting = false;
   target = '';
-  activityState$: Observable<ActivityState>;
-  title: string;
+  // activityState$: Observable<ActivityState>;
+  // title: string;
 
   constructor(
     private activityService: ActivityService,
@@ -36,9 +36,9 @@ export class AppComponent implements OnInit {
       this.loading = false;
     });
     // async example
-    this.activityState$ = this.activityStore.stateChanged;
+    // this.activityState$ = this.activityStore.stateChanged;
     // sync example
-    this.title = this.activityStore.getTitle();
+    // this.title = this.activityStore.getTitle();
   }
 
   onChangedActivity(id: string): void {

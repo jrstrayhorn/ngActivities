@@ -1,3 +1,5 @@
+import { IActivity } from './activity.model';
 export interface ActivityState {
-  title: string;
+  activities: IActivity[];
+  loadingInitial: boolean;
 }
