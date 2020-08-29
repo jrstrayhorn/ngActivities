@@ -1,21 +1,24 @@
-<app-loading *ngIf="loading" content="Loading activities..."></app-loading>
-<ng-container *ngIf="!loading">
-  <app-nav-bar (openedCreateForm)="onOpenedCreateForm()"></app-nav-bar>
-  <div class="ui container" style="margin-top: 7em">
-    <!-- <h1>{{ (activityState$ | async).title }}</h1> -->
-    <h1>{{ title }}</h1>
-    <app-activity-dashboard
-      [activities]="activities"
-      (changedActivity)="onChangedActivity($event)"
-      [currentActivity]="currentActivity"
-      [editMode]="editMode"
-      (changedEditMode)="onChangedEditMode($event)"
-      (changedCurrentActivity)="onChangedCurrentActivity($event)"
-      (createdActivity)="onCreatedActivity($event)"
-      (editedActivity)="onEditedActivity($event)"
-      (deletedActivity)="onDeletedActivity($event)"
-      [submitting]="submitting"
-      [target]="target"
-    ></app-activity-dashboard>
-  </div>
+<ng-container *ngIf="activityState$ | async as activityState">
+  <app-loading
+    *ngIf="activityState.loadingInitial; else mainContent"
+    content="Loading activities..."
+  ></app-loading>
+  <ng-template #mainContent>
+    <app-nav-bar (openedCreateForm)="onOpenedCreateForm()"></app-nav-bar>
+    <div class="ui container" style="margin-top: 7em">
+      <app-activity-dashboard
+        [activities]="activityState.activities"
+        (changedActivity)="onChangedActivity($event)"
+        [currentActivity]="currentActivity"
+        [editMode]="editMode"
+        (changedEditMode)="onChangedEditMode($event)"
+        (changedCurrentActivity)="onChangedCurrentActivity($event)"
+        (createdActivity)="onCreatedActivity($event)"
+        (editedActivity)="onEditedActivity($event)"
+        (deletedActivity)="onDeletedActivity($event)"
+        [submitting]="submitting"
+        [target]="target"
+      ></app-activity-dashboard>
+    </div>
+  </ng-template>
 </ng-container>

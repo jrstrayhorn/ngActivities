@@ -17,8 +17,7 @@ export class AppComponent implements OnInit {
   loading = true;
   submitting = false;
   target = '';
-  // activityState$: Observable<ActivityState>;
-  // title: string;
+  activityState$: Observable<ActivityState>;
 
   constructor(
     private activityService: ActivityService,
@@ -26,19 +25,8 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activityService.getAll().subscribe((data) => {
-      const activities = [];
-      data.forEach((activity) => {
-        activity.date = activity.date.split('.')[0];
-        activities.push(activity);
-      });
-      this.activities = activities;
-      this.loading = false;
-    });
-    // async example
-    // this.activityState$ = this.activityStore.stateChanged;
-    // sync example
-    // this.title = this.activityStore.getTitle();
+    this.activityState$ = this.activityStore.stateChanged;
+    this.activityStore.loadActivities();
   }
 
   onChangedActivity(id: string): void {
