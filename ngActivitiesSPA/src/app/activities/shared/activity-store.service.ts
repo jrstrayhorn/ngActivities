@@ -1,7 +1,14 @@
 import { ActivityService } from './activity.service';
 import { Injectable } from '@angular/core';
 import { ObservableStore } from '@codewithdan/observable-store';
-import { ActivityState } from './activity-state';
+import { IActivity } from './activity.model';
+
+export interface ActivityState {
+  activities: IActivity[];
+  selectedActivity: IActivity;
+  loadingInitial: boolean;
+  editMode: boolean;
+}
 
 export enum ActivityStoreActions {
   InitState = 'INIT_STATE',
@@ -13,10 +20,16 @@ export enum ActivityStoreActions {
 export class ActivityStore extends ObservableStore<ActivityState> {
   constructor(private activityService: ActivityService) {
     super({});
-    this.setState(
-      { activities: [], loadingInitial: false },
-      ActivityStoreActions.InitState
-    );
+    this.setState(this.getInitialState(), ActivityStoreActions.InitState);
+  }
+
+  private getInitialState(): ActivityState {
+    return {
+      activities: [],
+      loadingInitial: false,
+      selectedActivity: null,
+      editMode: false,
+    };
   }
 
   loadActivities() {
@@ -33,6 +46,15 @@ export class ActivityStore extends ObservableStore<ActivityState> {
       () => {},
       () => this.setState({ ...this.getState(), loadingInitial: false })
     );
+  }
+
+  selectActivity(id: string) {
+    const state = this.getState();
+    this.setState({
+      ...state,
+      selectedActivity: state.activities.find((a) => a.id === id),
+      editMode: false,
+    });
   }
 
   // getTitle() {

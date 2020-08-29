@@ -2,8 +2,7 @@ import { Observable } from 'rxjs';
 import { ActivityService } from './activities/shared/activity.service';
 import { IActivity } from './activities/shared/activity.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivityStore } from './activities/shared/activity-store.service';
-import { ActivityState } from './activities/shared/activity-state';
+import { ActivityStore, ActivityState } from './activities/shared/activity-store.service';
 
 @Component({
   selector: 'app-root',
