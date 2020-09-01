@@ -1,21 +1,29 @@
-<div class="ui fluid card">
-  <div class="image">
-    <img src="assets/categoryImages/{{ currentActivity.category }}.jpg" />
-  </div>
-  <div class="content">
-    <div class="header">{{ currentActivity.title }}</div>
-    <div class="meta">
-      <span>{{ currentActivity.date }}</span>
+<ng-container *ngIf="activityState$ | async as activityState">
+  <div class="ui fluid card">
+    <div class="image">
+      <img
+        src="assets/categoryImages/{{
+          activityState.selectedActivity.category
+        }}.jpg"
+      />
     </div>
-    <div class="description">{{ currentActivity.description }}</div>
-  </div>
-  <div class="extra content">
-    <div class="ui two wide buttons">
-      <button class="ui basic blue button" (click)="setEditMode(true)">
-        Edit</button
-      ><button class="ui basic grey button" (click)="setCurrentActivity()">
-        Cancel
-      </button>
+    <div class="content">
+      <div class="header">{{ activityState.selectedActivity.title }}</div>
+      <div class="meta">
+        <span>{{ activityState.selectedActivity.date }}</span>
+      </div>
+      <div class="description">
+        {{ activityState.selectedActivity.description }}
+      </div>
+    </div>
+    <div class="extra content">
+      <div class="ui two wide buttons">
+        <button class="ui basic blue button" (click)="setEditMode(true)">
+          Edit</button
+        ><button class="ui basic grey button" (click)="setCurrentActivity()">
+          Cancel
+        </button>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>

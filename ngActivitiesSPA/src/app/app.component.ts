@@ -2,7 +2,10 @@ import { Observable } from 'rxjs';
 import { ActivityService } from './activities/shared/activity.service';
 import { IActivity } from './activities/shared/activity.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivityStore, ActivityState } from './activities/shared/activity-store.service';
+import {
+  ActivityStore,
+  ActivityState,
+} from './activities/shared/activity-store.service';
 
 @Component({
   selector: 'app-root',
@@ -26,11 +29,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.activityState$ = this.activityStore.stateChanged;
     this.activityStore.loadActivities();
-  }
-
-  onChangedActivity(id: string): void {
-    this.currentActivity = this.activities.find((a) => a.id === id);
-    this.editMode = false;
   }
 
   onDeletedActivity(id: string): void {

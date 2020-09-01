@@ -1,5 +1,8 @@
+import { ActivityStore } from './../shared/activity-store.service';
 import { IActivity } from './../shared/activity.model';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ActivityState } from '../shared/activity-store.service';
 
 @Component({
   selector: 'app-activity-dashboard',
@@ -7,13 +10,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./activity-dashboard.component.css'],
 })
 export class ActivityDashboardComponent implements OnInit {
-  @Input() activities: IActivity[];
-  @Input() currentActivity: IActivity;
-  @Input() editMode: boolean;
+  activityState$: Observable<ActivityState>;
+
   @Input() submitting: boolean;
   @Input() target: string;
 
-  @Output() changedActivity = new EventEmitter<string>();
   @Output() deletedActivity = new EventEmitter<string>();
 
   @Output() changedEditMode = new EventEmitter<boolean>();
@@ -22,12 +23,10 @@ export class ActivityDashboardComponent implements OnInit {
   @Output() createdActivity = new EventEmitter<IActivity>();
   @Output() editedActivity = new EventEmitter<IActivity>();
 
-  constructor() {}
+  constructor(private activityStore: ActivityStore) {}
 
-  ngOnInit() {}
-
-  onSelectedActivity(id: string): void {
-    this.changedActivity.emit(id);
+  ngOnInit() {
+    this.activityState$ = this.activityStore.stateChanged;
   }
 
   onDeletedActivity(id: string): void {

@@ -1,5 +1,8 @@
+import { Observable } from 'rxjs';
+import { ActivityStore } from './../shared/activity-store.service';
 import { IActivity } from './../shared/activity.model';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-activity-list',
@@ -7,19 +10,27 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./activity-list.component.css'],
 })
 export class ActivityListComponent implements OnInit {
-  @Input() activities: IActivity[];
+  activities$: Observable<IActivity[]>;
+
   @Input() submitting: boolean;
   @Input() target: string;
 
-  @Output() selectedActivity = new EventEmitter<string>();
   @Output() deletedActivity = new EventEmitter<string>();
 
-  constructor() {}
+  constructor(private activityStore: ActivityStore) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.activities$ = this.activityStore.stateChanged.pipe(
+      map((state) => {
+        if (state) {
+          return state.activities;
+        }
+      })
+    );
+  }
 
   selectActivity(activity: IActivity) {
-    this.selectedActivity.emit(activity.id);
+    this.activityStore.selectActivity(activity.id);
   }
 
   deleteActivity(activity: IActivity) {

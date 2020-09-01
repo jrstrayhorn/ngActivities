@@ -1,27 +1,26 @@
-<div class="ui grid">
-  <div class="ten wide column">
-    <app-activity-list
-      [activities]="activities"
-      (selectedActivity)="onSelectedActivity($event)"
-      (deletedActivity)="onDeletedActivity($event)"
-      [submitting]="submitting"
-      [target]="target"
-    ></app-activity-list>
+<ng-container *ngIf="activityState$ | async as activityState">
+  <div class="ui grid">
+    <div class="ten wide column">
+      <app-activity-list
+        (deletedActivity)="onDeletedActivity($event)"
+        [submitting]="submitting"
+        [target]="target"
+      ></app-activity-list>
+    </div>
+    <div class="six wide column">
+      <app-activity-details
+        *ngIf="activityState.selectedActivity && !activityState.editMode"
+        (changedEditMode)="onChangedEditMode($event)"
+        (changedCurrentActivity)="onChangedCurrentActivity($event)"
+      ></app-activity-details>
+      <app-activity-form
+        *ngIf="activityState.editMode"
+        (changedEditMode)="onChangedEditMode($event)"
+        [currentActivity]="activityState.selectedActivity"
+        (createdActivity)="onCreatedActivity($event)"
+        (editedActivity)="onEditedActivity($event)"
+        [submitting]="submitting"
+      ></app-activity-form>
+    </div>
   </div>
-  <div class="six wide column">
-    <app-activity-details
-      *ngIf="currentActivity && !editMode"
-      [currentActivity]="currentActivity"
-      (changedEditMode)="onChangedEditMode($event)"
-      (changedCurrentActivity)="onChangedCurrentActivity($event)"
-    ></app-activity-details>
-    <app-activity-form
-      *ngIf="editMode"
-      (changedEditMode)="onChangedEditMode($event)"
-      [currentActivity]="currentActivity"
-      (createdActivity)="onCreatedActivity($event)"
-      (editedActivity)="onEditedActivity($event)"
-      [submitting]="submitting"
-    ></app-activity-form>
-  </div>
-</div>
+</ng-container>

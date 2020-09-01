@@ -7,10 +7,6 @@
     <app-nav-bar (openedCreateForm)="onOpenedCreateForm()"></app-nav-bar>
     <div class="ui container" style="margin-top: 7em">
       <app-activity-dashboard
-        [activities]="activityState.activities"
-        (changedActivity)="onChangedActivity($event)"
-        [currentActivity]="currentActivity"
-        [editMode]="editMode"
         (changedEditMode)="onChangedEditMode($event)"
         (changedCurrentActivity)="onChangedCurrentActivity($event)"
         (createdActivity)="onCreatedActivity($event)"

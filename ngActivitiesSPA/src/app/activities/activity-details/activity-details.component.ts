@@ -1,5 +1,7 @@
+import { Observable } from 'rxjs';
 import { IActivity } from './../shared/activity.model';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ActivityState, ActivityStore } from '../shared/activity-store.service';
 
 @Component({
   selector: 'app-activity-details',
@@ -7,14 +9,16 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./activity-details.component.css'],
 })
 export class ActivityDetailsComponent implements OnInit {
-  @Input() currentActivity: IActivity;
+  activityState$: Observable<ActivityState>;
 
   @Output() changedEditMode = new EventEmitter<boolean>();
   @Output() changedCurrentActivity = new EventEmitter<IActivity>();
 
-  constructor() {}
+  constructor(private activityStore: ActivityStore) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.activityState$ = this.activityStore.stateChanged;
+  }
 
   setEditMode(isEdit: boolean) {
     this.changedEditMode.emit(isEdit);
