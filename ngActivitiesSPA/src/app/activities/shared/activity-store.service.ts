@@ -43,7 +43,10 @@ export class ActivityStore extends ObservableStore<ActivityState> {
           activity.date = activity.date.split('.')[0];
           activities.push(activity);
         });
-        this.setState({ ...this.getState(), activities });
+        this.setState({
+          ...this.getState(),
+          activities: this.sortActivitiesByDate(activities),
+        });
       },
       () => {},
       () => this.setState({ ...this.getState(), loadingInitial: false })
@@ -66,7 +69,10 @@ export class ActivityStore extends ObservableStore<ActivityState> {
         const state = this.getState();
         this.setState({
           ...state,
-          activities: [...state.activities, activity],
+          activities: this.sortActivitiesByDate([
+            ...state.activities,
+            activity,
+          ]),
           selectedActivity: activity,
           editMode: false,
         });
@@ -82,6 +88,10 @@ export class ActivityStore extends ObservableStore<ActivityState> {
       selectedActivity: null,
       editMode: true,
     });
+  }
+
+  private sortActivitiesByDate(activities: IActivity[]): IActivity[] {
+    return activities.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
   }
 
   // getTitle() {
