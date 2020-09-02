@@ -1,93 +1,95 @@
-<div class="ui clearing segment">
-  <form class="ui form">
-    <div class="field">
-      <div class="ui input">
-        <input
-          placeholder="Title"
-          type="text"
-          value="{{ currentActivity.title }}"
-          name="title"
-          #titleEl
-          (change)="handleInputChange(titleEl)"
-        />
+<ng-container *ngIf="activityState$ | async as activityState">
+  <div class="ui clearing segment">
+    <form class="ui form">
+      <div class="field">
+        <div class="ui input">
+          <input
+            placeholder="Title"
+            type="text"
+            value="{{ currentActivity.title }}"
+            name="title"
+            #titleEl
+            (change)="handleInputChange(titleEl)"
+          />
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <div class="ui input">
-        <textarea
-          placeholder="Description"
-          rows="2"
-          name="description"
-          #descriptionEl
-          (change)="handleInputChange(descriptionEl)"
-          >{{ currentActivity.description }}</textarea
+      <div class="field">
+        <div class="ui input">
+          <textarea
+            placeholder="Description"
+            rows="2"
+            name="description"
+            #descriptionEl
+            (change)="handleInputChange(descriptionEl)"
+            >{{ currentActivity.description }}</textarea
+          >
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui input">
+          <input
+            placeholder="Category"
+            type="text"
+            value="{{ currentActivity.category }}"
+            name="category"
+            #categoryEl
+            (change)="handleInputChange(categoryEl)"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui input">
+          <input
+            placeholder="Date"
+            type="datetime-local"
+            value="{{ currentActivity.date }}"
+            name="date"
+            #dateEl
+            (change)="handleInputChange(dateEl)"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui input">
+          <input
+            placeholder="City"
+            type="text"
+            value="{{ currentActivity.city }}"
+            name="city"
+            #cityEl
+            (change)="handleInputChange(cityEl)"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui input">
+          <input
+            placeholder="Venue"
+            type="text"
+            value="{{ currentActivity.venue }}"
+            name="venue"
+            #venueEl
+            (change)="handleInputChange(venueEl)"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <button
+          class="ui button right floated positive"
+          [class.loading]="activityState.submitting"
+          (click)="submitForm()"
+          type="button"
         >
+          Submit
+        </button>
+        <button
+          class="ui button right floated"
+          (click)="setEditMode(false)"
+          type="button"
+        >
+          Cancel
+        </button>
       </div>
-    </div>
-    <div class="field">
-      <div class="ui input">
-        <input
-          placeholder="Category"
-          type="text"
-          value="{{ currentActivity.category }}"
-          name="category"
-          #categoryEl
-          (change)="handleInputChange(categoryEl)"
-        />
-      </div>
-    </div>
-    <div class="field">
-      <div class="ui input">
-        <input
-          placeholder="Date"
-          type="datetime-local"
-          value="{{ currentActivity.date }}"
-          name="date"
-          #dateEl
-          (change)="handleInputChange(dateEl)"
-        />
-      </div>
-    </div>
-    <div class="field">
-      <div class="ui input">
-        <input
-          placeholder="City"
-          type="text"
-          value="{{ currentActivity.city }}"
-          name="city"
-          #cityEl
-          (change)="handleInputChange(cityEl)"
-        />
-      </div>
-    </div>
-    <div class="field">
-      <div class="ui input">
-        <input
-          placeholder="Venue"
-          type="text"
-          value="{{ currentActivity.venue }}"
-          name="venue"
-          #venueEl
-          (change)="handleInputChange(venueEl)"
-        />
-      </div>
-    </div>
-    <div class="field">
-      <button
-        class="ui button right floated positive"
-        [class.loading]="submitting"
-        (click)="submitForm()"
-        type="button"
-      >
-        Submit
-      </button>
-      <button
-        class="ui button right floated"
-        (click)="setEditMode(false)"
-        type="button"
-      >
-        Cancel
-      </button>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
+</ng-container>

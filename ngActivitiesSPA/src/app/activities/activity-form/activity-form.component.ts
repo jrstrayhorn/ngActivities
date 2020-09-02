@@ -1,11 +1,13 @@
-import { ActivityStore } from './../shared/activity-store.service';
+import { Observable } from 'rxjs';
+import {
+  ActivityStore,
+  ActivityState,
+} from './../shared/activity-store.service';
 import { IActivity } from './../shared/activity.model';
 import {
   SimpleChanges,
   Component,
   OnInit,
-  EventEmitter,
-  Output,
   Input,
   OnChanges,
 } from '@angular/core';
@@ -17,11 +19,9 @@ import { v4 as uuid } from 'uuid';
   styleUrls: ['./activity-form.component.css'],
 })
 export class ActivityFormComponent implements OnInit, OnChanges {
-  @Input() currentActivity: IActivity;
-  @Input() submitting: boolean;
+  activityState$: Observable<ActivityState>;
 
-  @Output() changedEditMode = new EventEmitter<boolean>();
-  @Output() editedActivity = new EventEmitter<IActivity>();
+  @Input() currentActivity: IActivity;
 
   constructor(private activityStore: ActivityStore) {}
 
@@ -30,6 +30,7 @@ export class ActivityFormComponent implements OnInit, OnChanges {
     // this would work the first time but not on the changes to currentActivtiy
     // need to use OnNgChanges() to check for null and set to empty object
     // console.log(this.activity);
+    this.activityState$ = this.activityStore.stateChanged;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,7 +44,7 @@ export class ActivityFormComponent implements OnInit, OnChanges {
   }
 
   setEditMode(isEdit: boolean) {
-    this.changedEditMode.emit(isEdit);
+    this.activityStore.changeEditMode(isEdit);
   }
 
   submitForm() {
@@ -56,7 +57,7 @@ export class ActivityFormComponent implements OnInit, OnChanges {
       // console.log(newActivity);
       this.activityStore.createActivity(newActivity);
     } else {
-      this.editedActivity.emit(this.currentActivity);
+      this.activityStore.editActivity(this.currentActivity);
     }
     // this.changedEditMode.emit(false);
   }

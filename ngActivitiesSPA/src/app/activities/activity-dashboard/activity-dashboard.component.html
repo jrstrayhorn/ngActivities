@@ -10,15 +10,10 @@
     <div class="six wide column">
       <app-activity-details
         *ngIf="activityState.selectedActivity && !activityState.editMode"
-        (changedEditMode)="onChangedEditMode($event)"
-        (changedCurrentActivity)="onChangedCurrentActivity($event)"
       ></app-activity-details>
       <app-activity-form
         *ngIf="activityState.editMode"
-        (changedEditMode)="onChangedEditMode($event)"
         [currentActivity]="activityState.selectedActivity"
-        (editedActivity)="onEditedActivity($event)"
-        [submitting]="submitting"
       ></app-activity-form>
     </div>
   </div>

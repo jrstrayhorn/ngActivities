@@ -14,9 +14,6 @@ import {
 })
 export class AppComponent implements OnInit {
   activities: IActivity[];
-  currentActivity: IActivity;
-  editMode = false;
-  loading = true;
   submitting = false;
   target = '';
   activityState$: Observable<ActivityState>;
@@ -38,28 +35,5 @@ export class AppComponent implements OnInit {
       this.activities = [...this.activities.filter((a) => a.id !== id)];
       this.submitting = false;
     });
-  }
-
-  onChangedEditMode(isEdit: boolean): void {
-    this.editMode = isEdit;
-  }
-  onChangedCurrentActivity(activity: IActivity): void {
-    this.currentActivity = activity;
-  }
-
-  onEditedActivity(activity: IActivity): void {
-    this.submitting = true;
-    this.activityService.update(activity).subscribe(
-      () => {
-        this.activities = [
-          ...this.activities.filter((a) => a.id !== activity.id),
-          activity,
-        ];
-        this.currentActivity = activity;
-        this.editMode = false;
-      },
-      () => {},
-      () => (this.submitting = false)
-    );
   }
 }

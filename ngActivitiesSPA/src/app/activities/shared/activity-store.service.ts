@@ -82,11 +82,45 @@ export class ActivityStore extends ObservableStore<ActivityState> {
     );
   }
 
+  editActivity(activity: IActivity) {
+    this.setState({ ...this.getState(), submitting: true });
+    this.activityService.update(activity).subscribe(
+      () => {
+        const state = this.getState();
+        this.setState({
+          ...state,
+          activities: this.sortActivitiesByDate([
+            ...state.activities.filter((a) => a.id !== activity.id),
+            activity,
+          ]),
+          selectedActivity: activity,
+          editMode: false,
+        });
+      },
+      () => {},
+      () => this.setState({ ...this.getState(), submitting: false })
+    );
+  }
+
   openCreateForm() {
     this.setState({
       ...this.getState(),
       selectedActivity: null,
       editMode: true,
+    });
+  }
+
+  changeEditMode(isEdit: boolean): void {
+    this.setState({
+      ...this.getState(),
+      editMode: isEdit,
+    });
+  }
+
+  changeSelectedActivity(selectedActivity: IActivity): void {
+    this.setState({
+      ...this.getState(),
+      selectedActivity,
     });
   }
 

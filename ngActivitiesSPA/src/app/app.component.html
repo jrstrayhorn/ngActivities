@@ -7,9 +7,6 @@
     <app-nav-bar></app-nav-bar>
     <div class="ui container" style="margin-top: 7em">
       <app-activity-dashboard
-        (changedEditMode)="onChangedEditMode($event)"
-        (changedCurrentActivity)="onChangedCurrentActivity($event)"
-        (editedActivity)="onEditedActivity($event)"
         (deletedActivity)="onDeletedActivity($event)"
         [submitting]="submitting"
         [target]="target"
