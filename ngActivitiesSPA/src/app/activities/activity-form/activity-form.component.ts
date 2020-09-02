@@ -1,3 +1,4 @@
+import { ActivityStore } from './../shared/activity-store.service';
 import { IActivity } from './../shared/activity.model';
 import {
   SimpleChanges,
@@ -20,10 +21,9 @@ export class ActivityFormComponent implements OnInit, OnChanges {
   @Input() submitting: boolean;
 
   @Output() changedEditMode = new EventEmitter<boolean>();
-  @Output() createdActivity = new EventEmitter<IActivity>();
   @Output() editedActivity = new EventEmitter<IActivity>();
 
-  constructor() {}
+  constructor(private activityStore: ActivityStore) {}
 
   ngOnInit() {
     // is the first time? Yes but this value might change more than once
@@ -54,7 +54,7 @@ export class ActivityFormComponent implements OnInit, OnChanges {
         id: uuid(),
       } as IActivity;
       // console.log(newActivity);
-      this.createdActivity.emit(newActivity);
+      this.activityStore.createActivity(newActivity);
     } else {
       this.editedActivity.emit(this.currentActivity);
     }

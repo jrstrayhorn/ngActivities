@@ -17,7 +17,6 @@
         *ngIf="activityState.editMode"
         (changedEditMode)="onChangedEditMode($event)"
         [currentActivity]="activityState.selectedActivity"
-        (createdActivity)="onCreatedActivity($event)"
         (editedActivity)="onEditedActivity($event)"
         [submitting]="submitting"
       ></app-activity-form>

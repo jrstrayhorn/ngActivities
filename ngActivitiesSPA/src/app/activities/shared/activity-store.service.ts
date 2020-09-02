@@ -8,6 +8,7 @@ export interface ActivityState {
   selectedActivity: IActivity;
   loadingInitial: boolean;
   editMode: boolean;
+  submitting: boolean;
 }
 
 export enum ActivityStoreActions {
@@ -29,6 +30,7 @@ export class ActivityStore extends ObservableStore<ActivityState> {
       loadingInitial: false,
       selectedActivity: null,
       editMode: false,
+      submitting: false,
     };
   }
 
@@ -54,6 +56,31 @@ export class ActivityStore extends ObservableStore<ActivityState> {
       ...state,
       selectedActivity: state.activities.find((a) => a.id === id),
       editMode: false,
+    });
+  }
+
+  createActivity(activity: IActivity) {
+    this.setState({ ...this.getState(), submitting: true });
+    this.activityService.create(activity).subscribe(
+      () => {
+        const state = this.getState();
+        this.setState({
+          ...state,
+          activities: [...state.activities, activity],
+          selectedActivity: activity,
+          editMode: false,
+        });
+      },
+      () => {},
+      () => this.setState({ ...this.getState(), submitting: false })
+    );
+  }
+
+  openCreateForm() {
+    this.setState({
+      ...this.getState(),
+      selectedActivity: null,
+      editMode: true,
     });
   }
 

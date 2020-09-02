@@ -43,27 +43,8 @@ export class AppComponent implements OnInit {
   onChangedEditMode(isEdit: boolean): void {
     this.editMode = isEdit;
   }
-
-  onOpenedCreateForm(): void {
-    this.currentActivity = null;
-    this.editMode = true;
-  }
-
   onChangedCurrentActivity(activity: IActivity): void {
     this.currentActivity = activity;
-  }
-
-  onCreatedActivity(activity: IActivity): void {
-    this.submitting = true;
-    this.activityService.create(activity).subscribe(
-      () => {
-        this.activities = [...this.activities, activity];
-        this.currentActivity = activity;
-        this.editMode = false;
-      },
-      () => {},
-      () => (this.submitting = false)
-    );
   }
 
   onEditedActivity(activity: IActivity): void {

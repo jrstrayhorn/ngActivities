@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivityStore } from './../../activities/shared/activity-store.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,13 +7,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
-  @Output() openedCreateForm = new EventEmitter<null>();
-
-  constructor() {}
+  constructor(private activityStore: ActivityStore) {}
 
   ngOnInit() {}
 
   openCreateForm() {
-    this.openedCreateForm.emit();
+    this.activityStore.openCreateForm();
   }
 }

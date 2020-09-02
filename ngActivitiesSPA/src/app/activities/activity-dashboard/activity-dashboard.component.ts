@@ -20,7 +20,6 @@ export class ActivityDashboardComponent implements OnInit {
   @Output() changedEditMode = new EventEmitter<boolean>();
 
   @Output() changedCurrentActivity = new EventEmitter<IActivity>();
-  @Output() createdActivity = new EventEmitter<IActivity>();
   @Output() editedActivity = new EventEmitter<IActivity>();
 
   constructor(private activityStore: ActivityStore) {}
@@ -39,10 +38,6 @@ export class ActivityDashboardComponent implements OnInit {
 
   onChangedCurrentActivity(activity: IActivity): void {
     this.changedCurrentActivity.emit(activity);
-  }
-
-  onCreatedActivity(activity: IActivity): void {
-    this.createdActivity.emit(activity);
   }
 
   onEditedActivity(activity: IActivity): void {
