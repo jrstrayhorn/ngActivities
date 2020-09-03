@@ -56,23 +56,19 @@ export class ActivityStore extends ObservableStore<ActivityState> {
   }
 
   selectActivity(id: string) {
-    const state = this.getState();
     this.setState({
-      ...state,
-      selectedActivity: state.activities.find((a) => a.id === id),
+      selectedActivity: this.getState().activities.find((a) => a.id === id),
       editMode: false,
     });
   }
 
   createActivity(activity: IActivity) {
-    this.setState({ ...this.getState(), submitting: true });
+    this.setState({ submitting: true });
     this.activityService.create(activity).subscribe(
       () => {
-        const state = this.getState();
         this.setState({
-          ...state,
           activities: this.sortActivitiesByDate([
-            ...state.activities,
+            ...this.getState().activities,
             activity,
           ]),
           selectedActivity: activity,
@@ -80,19 +76,17 @@ export class ActivityStore extends ObservableStore<ActivityState> {
         });
       },
       () => {},
-      () => this.setState({ ...this.getState(), submitting: false })
+      () => this.setState({ submitting: false })
     );
   }
 
   editActivity(activity: IActivity) {
-    this.setState({ ...this.getState(), submitting: true });
+    this.setState({ submitting: true });
     this.activityService.update(activity).subscribe(
       () => {
-        const state = this.getState();
         this.setState({
-          ...state,
           activities: this.sortActivitiesByDate([
-            ...state.activities.filter((a) => a.id !== activity.id),
+            ...this.getState().activities.filter((a) => a.id !== activity.id),
             activity,
           ]),
           selectedActivity: activity,
@@ -100,13 +94,12 @@ export class ActivityStore extends ObservableStore<ActivityState> {
         });
       },
       () => {},
-      () => this.setState({ ...this.getState(), submitting: false })
+      () => this.setState({ submitting: false })
     );
   }
 
   openCreateForm() {
     this.setState({
-      ...this.getState(),
       selectedActivity: null,
       editMode: true,
     });
@@ -114,26 +107,22 @@ export class ActivityStore extends ObservableStore<ActivityState> {
 
   changeEditMode(isEdit: boolean): void {
     this.setState({
-      ...this.getState(),
       editMode: isEdit,
     });
   }
 
   changeSelectedActivity(selectedActivity: IActivity): void {
     this.setState({
-      ...this.getState(),
       selectedActivity,
     });
   }
 
   deleteActivity(id: string): void {
-    this.setState({ ...this.getState(), submitting: true, target: id });
+    this.setState({ submitting: true, target: id });
     this.activityService.delete(id).subscribe(() => {
-      const state = this.getState();
       this.setState({
-        ...state,
         activities: this.sortActivitiesByDate([
-          ...state.activities.filter((a) => a.id !== id),
+          ...this.getState().activities.filter((a) => a.id !== id),
         ]),
         submitting: false,
       });
