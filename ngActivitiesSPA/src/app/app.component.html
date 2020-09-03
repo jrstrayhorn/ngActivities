@@ -6,11 +6,7 @@
   <ng-template #mainContent>
     <app-nav-bar></app-nav-bar>
     <div class="ui container" style="margin-top: 7em">
-      <app-activity-dashboard
-        (deletedActivity)="onDeletedActivity($event)"
-        [submitting]="submitting"
-        [target]="target"
-      ></app-activity-dashboard>
+      <app-activity-dashboard></app-activity-dashboard>
     </div>
   </ng-template>
 </ng-container>

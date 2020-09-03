@@ -1,7 +1,7 @@
-<ng-container *ngIf="activities$ | async as activities">
+<ng-container *ngIf="activityState$ | async as activityState">
   <div class="ui clearing segment">
     <div class="ui divided items">
-      <div class="item" *ngFor="let activity of activities">
+      <div class="item" *ngFor="let activity of activityState.activities">
         <div class="content">
           <a class="header">{{ activity.title }}</a>
           <div class="meta">{{ activity.date }}</div>
@@ -18,7 +18,7 @@
             </button>
             <button
               class="ui button right floated red"
-              [class.loading]="target === activity.id && submitting"
+              [class.loading]="activityState.target === activity.id && activityState.submitting"
               (click)="deleteActivity(activity)"
             >
               Delete

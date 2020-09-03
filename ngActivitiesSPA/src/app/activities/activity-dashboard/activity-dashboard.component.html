@@ -1,11 +1,7 @@
 <ng-container *ngIf="activityState$ | async as activityState">
   <div class="ui grid">
     <div class="ten wide column">
-      <app-activity-list
-        (deletedActivity)="onDeletedActivity($event)"
-        [submitting]="submitting"
-        [target]="target"
-      ></app-activity-list>
+      <app-activity-list></app-activity-list>
     </div>
     <div class="six wide column">
       <app-activity-details

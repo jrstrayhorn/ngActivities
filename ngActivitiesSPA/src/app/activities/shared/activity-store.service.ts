@@ -2,6 +2,7 @@ import { ActivityService } from './activity.service';
 import { Injectable } from '@angular/core';
 import { ObservableStore } from '@codewithdan/observable-store';
 import { IActivity } from './activity.model';
+import { stringify } from 'querystring';
 
 export interface ActivityState {
   activities: IActivity[];
@@ -9,6 +10,7 @@ export interface ActivityState {
   loadingInitial: boolean;
   editMode: boolean;
   submitting: boolean;
+  target: string;
 }
 
 export enum ActivityStoreActions {
@@ -31,11 +33,12 @@ export class ActivityStore extends ObservableStore<ActivityState> {
       selectedActivity: null,
       editMode: false,
       submitting: false,
+      target: '',
     };
   }
 
   loadActivities() {
-    this.setState({ ...this.getState(), loadingInitial: true });
+    this.setState({ loadingInitial: true });
     this.activityService.getAll().subscribe(
       (data) => {
         const activities = [];
@@ -44,12 +47,11 @@ export class ActivityStore extends ObservableStore<ActivityState> {
           activities.push(activity);
         });
         this.setState({
-          ...this.getState(),
           activities: this.sortActivitiesByDate(activities),
         });
       },
       () => {},
-      () => this.setState({ ...this.getState(), loadingInitial: false })
+      () => this.setState({ loadingInitial: false })
     );
   }
 
@@ -121,6 +123,20 @@ export class ActivityStore extends ObservableStore<ActivityState> {
     this.setState({
       ...this.getState(),
       selectedActivity,
+    });
+  }
+
+  deleteActivity(id: string): void {
+    this.setState({ ...this.getState(), submitting: true, target: id });
+    this.activityService.delete(id).subscribe(() => {
+      const state = this.getState();
+      this.setState({
+        ...state,
+        activities: this.sortActivitiesByDate([
+          ...state.activities.filter((a) => a.id !== id),
+        ]),
+        submitting: false,
+      });
     });
   }
 
