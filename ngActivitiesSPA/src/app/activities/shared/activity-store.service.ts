@@ -2,7 +2,6 @@ import { ActivityService } from './activity.service';
 import { Injectable } from '@angular/core';
 import { ObservableStore } from '@codewithdan/observable-store';
 import { IActivity } from './activity.model';
-import { stringify } from 'querystring';
 
 export interface ActivityState {
   activities: IActivity[];
